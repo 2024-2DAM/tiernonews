@@ -29,4 +29,8 @@ public class ArticleService {
             return null;
         }*/
     }
+
+    public Article addArticle(Article article) {
+        return articleRepository.save(article);
+    }
 }
