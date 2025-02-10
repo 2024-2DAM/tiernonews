@@ -33,4 +33,31 @@ public class ArticleService {
     public Article addArticle(Article article) {
         return articleRepository.save(article);
     }
+
+    /**
+     *
+     * @param id
+     * @param article Artículo con los datos que quiero actualizar en la base de datos
+     * @return
+     */
+    public Article updateArticle(Long id, Article article) {
+        Optional<Article> articleOptional = articleRepository.findById(id);
+        if (articleOptional.isPresent()) {
+            Article articleToUpdate = articleOptional.get();
+            articleToUpdate.setTitle(article.getTitle());
+            articleToUpdate.setContent(article.getContent());
+            articleToUpdate.setDate(article.getDate());
+            return articleRepository.save(articleToUpdate);
+        }
+        return null;
+    }
+
+    public void deleteArticle(Long id) {
+        articleRepository.deleteById(id);
+    }
+
+    public void deleteArticleByTitle(String title){
+        articleRepository.deleteByTitle(title);
+    }
+
 }
