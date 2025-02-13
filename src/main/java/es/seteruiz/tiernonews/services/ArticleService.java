@@ -4,6 +4,7 @@ import es.seteruiz.tiernonews.models.Article;
 import es.seteruiz.tiernonews.repositories.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,6 @@ public class ArticleService {
     }
 
     /**
-     *
      * @param id
      * @param article Artículo con los datos que quiero actualizar en la base de datos
      * @return
@@ -56,8 +56,22 @@ public class ArticleService {
         articleRepository.deleteById(id);
     }
 
-    public void deleteArticleByTitle(String title){
-        articleRepository.deleteByTitle(title);
+    @Transactional
+    public int deleteArticleByTitle(String title) {
+        //Antes de eliminar quiero ver si hay algún artículo con ese título
+//        if (existsArticlesByTitle(title)) {
+//            return articleRepository.deleteArticleByTitle(title);
+//        } else {
+//            return -1;
+//        }
+        return existsArticlesByTitle(title) ? articleRepository.deleteArticleByTitle(title) : -1;
     }
 
+    public boolean existsArticlesByTitle(String title) {
+        return articleRepository.existsArticlesByTitle(title);
+    }
+
+    public boolean existsById(Long id){
+        return articleRepository.existsById(id);
+    }
 }
