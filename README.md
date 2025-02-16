@@ -117,7 +117,7 @@ Representa une autore en el sistema. Les autores pueden estar asociados a artíc
   Obtiene un autor específico por su ID (vía query).  
   **Parámetros:**
     - `id` (query): El ID del autor a buscar.  
-      **Respuesta:**
+  **Respuesta:**
     - `200 OK`: Devuelve el autor correspondiente al ID.
     - `404 Not Found`: Si no se encuentra ningún autor con el ID especificado.
 
